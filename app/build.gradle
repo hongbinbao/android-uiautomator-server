@@ -25,13 +25,13 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 22
-    buildToolsVersion "22.0.1"
+    compileSdkVersion 23
+    buildToolsVersion "23.0.3"
 
     defaultConfig {
         applicationId "com.github.uiautomator"
         minSdkVersion 18
-        targetSdkVersion 22
+        targetSdkVersion 23
         versionCode 1
         versionName "1.0"
     }
@@ -69,14 +69,14 @@ android {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.android.support:appcompat-v7:22.1.1'
+    compile 'com.android.support:appcompat-v7:23.3.0'
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
     androidTestCompile 'com.android.support.test:runner:0.2'
     androidTestCompile 'com.android.support.test:rules:0.2'
     androidTestCompile 'com.android.support.test.uiautomator:uiautomator-v18:2.1.0'
-    androidTestCompile 'com.android.support:support-v4:22.1.1'
-    androidTestCompile 'com.android.support:support-annotations:22.1.1'
+    androidTestCompile 'com.android.support:support-v4:23.3.0'
+    androidTestCompile 'com.android.support:support-annotations:23.3.0'
     androidTestCompile 'com.nanohttpd:nanohttpd:2.1.1'
     androidTestCompile 'com.fasterxml.jackson.core:jackson-core:2.5.3'
     androidTestCompile 'com.fasterxml.jackson.core:jackson-annotations:2.5.3'
@@ -87,7 +87,7 @@ dependencies {
 }
 
 buildscript {
-    ext.kotlin_version = '0.12.200'
+    ext.kotlin_version = '1.0.1-2'
     repositories {
         mavenCentral()
     }
