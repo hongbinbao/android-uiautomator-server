@@ -506,8 +506,7 @@ public class AutomatorServiceImpl implements AutomatorService {
         try {
             obj.toUiObject2().clear();
         } catch (NullPointerException e) {
-            //device.findObject(obj.toUiSelector()).clearTextField();
-            findObjectEx(obj).clearTextField();
+            device.findObject(obj.toUiSelector()).clearTextField();
         }
 
     }
@@ -522,8 +521,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     @Override
     public String getText(Selector obj) throws UiObjectNotFoundException {
         if (obj.toUiObject2() == null) {
-            //return device.findObject(obj.toUiSelector()).getText();
-            return findObjectEx(obj).getText();
+            return device.findObject(obj.toUiSelector()).getText();
         } else {
             return obj.toUiObject2().getText();
         }
@@ -544,8 +542,7 @@ public class AutomatorServiceImpl implements AutomatorService {
             obj.toUiObject2().setText(text);
             return true;
         } catch (NullPointerException e) {
-            //return device.findObject(obj.toUiSelector()).setText(text);
-            return findObjectEx(obj).setText(text);
+            return device.findObject(obj.toUiSelector()).setText(text);
         }
     }
 
@@ -559,8 +556,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     @Override
     public boolean click(Selector obj) throws UiObjectNotFoundException {
         if (obj.toUiObject2() == null) {
-            //return device.findObject(obj.toUiSelector()).click();
-            return findObjectEx(obj).click();
+            return device.findObject(obj.toUiSelector()).click();
         } else {
             obj.toUiObject2().click();
             return true;
@@ -577,8 +573,7 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public boolean click(Selector obj, String corner) throws UiObjectNotFoundException {
-        //return click(device.findObject(obj.toUiSelector()), corner);
-        return click(findObjectEx(obj), corner);
+        return click(device.findObject(obj.toUiSelector()), corner);
     }
 
     private boolean click(UiObject obj, String corner) throws UiObjectNotFoundException {
@@ -604,8 +599,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     @Override
     public boolean clickAndWaitForNewWindow(Selector obj, long timeout) throws UiObjectNotFoundException {
         if (obj.toUiObject2() == null) {
-            //return device.findObject(obj.toUiSelector()).clickAndWaitForNewWindow(timeout);
-            return findObjectEx(obj).clickAndWaitForNewWindow(timeout);
+            return device.findObject(obj.toUiSelector()).clickAndWaitForNewWindow(timeout);
         } else {
             return obj.toUiObject2().clickAndWait(Until.newWindow(), timeout);
         }
@@ -621,8 +615,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     @Override
     public boolean longClick(Selector obj) throws UiObjectNotFoundException {
         if (obj.toUiObject2() == null) {
-            //return device.findObject(obj.toUiSelector()).longClick();
-            return findObjectEx(obj).longClick();
+            return device.findObject(obj.toUiSelector()).longClick();
         } else {
             obj.toUiObject2().longClick();
             return true;
@@ -639,8 +632,7 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public boolean longClick(Selector obj, String corner) throws UiObjectNotFoundException {
-        //return longClick(device.findObject(obj.toUiSelector()), corner);
-        return longClick(findObjectEx(obj), corner);
+        return longClick(device.findObject(obj.toUiSelector()), corner);
     }
 
     private boolean longClick(UiObject obj, String corner) throws UiObjectNotFoundException {
@@ -666,13 +658,11 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public boolean dragTo(Selector obj, Selector destObj, int steps) throws UiObjectNotFoundException, NotImplementedException {
-        //return dragTo(device.findObject(obj.toUiSelector()), destObj, steps);
-        return dragTo(findObjectEx(obj), destObj, steps);
+        return dragTo(device.findObject(obj.toUiSelector()), destObj, steps);
     }
 
     private boolean dragTo(UiObject obj, Selector destObj, int steps) throws UiObjectNotFoundException, NotImplementedException {
-        //return obj.dragTo(device.findObject(destObj.toUiSelector()), steps);
-        return obj.dragTo(findObjectEx(destObj), steps);
+        return obj.dragTo(device.findObject(destObj.toUiSelector()), steps);
     }
 
     /**
@@ -718,8 +708,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     @Override
     public ObjInfo objInfo(Selector obj) throws UiObjectNotFoundException {
         if (obj.toUiObject2() == null) {
-            //return ObjInfo.getObjInfo(device.findObject(obj.toUiSelector()));
-            return ObjInfo.getObjInfo(findObjectEx(obj));
+            return ObjInfo.getObjInfo(device.findObject(obj.toUiSelector()));
         }
         return ObjInfo.getObjInfo(obj.toUiObject2());
     }
@@ -797,8 +786,7 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public boolean gesture(Selector obj, Point startPoint1, Point startPoint2, Point endPoint1, Point endPoint2, int steps) throws UiObjectNotFoundException, NotImplementedException {
-        //return gesture(device.findObject(obj.toUiSelector()), startPoint1, startPoint2, endPoint1, endPoint2, steps);
-        return gesture(findObjectEx(obj), startPoint1, startPoint2, endPoint1, endPoint2, steps);
+        return gesture(device.findObject(obj.toUiSelector()), startPoint1, startPoint2, endPoint1, endPoint2, steps);
     }
 
     private boolean gesture(UiObject obj, Point startPoint1, Point startPoint2, Point endPoint1, Point endPoint2, int steps) throws UiObjectNotFoundException, NotImplementedException {
@@ -817,8 +805,7 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public boolean pinchIn(Selector obj, int percent, int steps) throws UiObjectNotFoundException, NotImplementedException {
-        //return pinchIn(device.findObject(obj.toUiSelector()), percent, steps);
-        return pinchIn(findObjectEx(obj), percent, steps);
+        return pinchIn(device.findObject(obj.toUiSelector()), percent, steps);
     }
 
     private boolean pinchIn(UiObject obj, int percent, int steps) throws UiObjectNotFoundException, NotImplementedException {
@@ -837,8 +824,7 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public boolean pinchOut(Selector obj, int percent, int steps) throws UiObjectNotFoundException, NotImplementedException {
-        //return pinchOut(device.findObject(obj.toUiSelector()), percent, steps);
-        return pinchOut(findObjectEx(obj), percent, steps);
+        return pinchOut(device.findObject(obj.toUiSelector()), percent, steps);
     }
 
     private boolean pinchOut(UiObject obj, int percent, int steps) throws UiObjectNotFoundException, NotImplementedException {
@@ -856,8 +842,7 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public boolean swipe(Selector obj, String dir, int steps) throws UiObjectNotFoundException {
-        //return swipe(device.findObject(obj.toUiSelector()), dir, steps);
-        return swipe(findObjectEx(obj), dir, steps);
+        return swipe(device.findObject(obj.toUiSelector()), dir, steps);
     }
 
     private boolean swipe(UiObject item, String dir, int steps) throws UiObjectNotFoundException {
@@ -883,8 +868,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     @Override
     public boolean swipe(Selector obj, String dir, float percent, int steps) throws UiObjectNotFoundException {
         if (obj.toUiObject2() == null) {
-            //return swipe(device.findObject(obj.toUiSelector()), dir, steps);
-            return swipe(findObjectEx(obj), dir, steps);
+            return swipe(device.findObject(obj.toUiSelector()), dir, steps);
         }
         return swipe(obj.toUiObject2(), dir, percent, steps);
     }
@@ -910,13 +894,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     public boolean waitForExists(Selector obj, long timeout) {
         if (obj.getChildOrSibling().length == 0 && obj.checkBySelectorNull(obj) == false)
             return device.wait(Until.hasObject(obj.toBySelector()), timeout);
-        //return device.findObject(obj.toUiSelector()).waitForExists(timeout);
-        try {
-            return findObjectEx(obj).waitForExists(timeout);
-        } catch (UiObjectNotFoundException e) {
-            Log.e("waitForExists : ==> " + e.toString());
-            return false;
-        }
+        return device.findObject(obj.toUiSelector()).waitForExists(timeout);
     }
 
     /**
@@ -930,13 +908,7 @@ public class AutomatorServiceImpl implements AutomatorService {
     public boolean waitUntilGone(Selector obj, long timeout) {
         if (obj.getChildOrSibling().length == 0 && obj.checkBySelectorNull(obj) == false)
             return device.wait(Until.gone(obj.toBySelector()), timeout);
-        //return device.findObject(obj.toUiSelector()).waitUntilGone(timeout);
-        try {
-            return findObjectEx(obj).waitUntilGone(timeout);
-        } catch (UiObjectNotFoundException e) {
-            Log.e("waitUntilGone : ==> " + e.toString());
-            return false;
-        }
+        return device.findObject(obj.toUiSelector()).waitUntilGone(timeout);
     }
 
     /**
@@ -1230,8 +1202,7 @@ public class AutomatorServiceImpl implements AutomatorService {
      */
     @Override
     public String getUiObject(Selector selector) throws UiObjectNotFoundException {
-        //return addUiObject(device.findObject(selector.toUiSelector()));
-        return addUiObject(findObjectEx(selector));
+        return addUiObject(device.findObject(selector.toUiSelector()));
     }
 
     /**
@@ -1527,66 +1498,5 @@ public class AutomatorServiceImpl implements AutomatorService {
     public ConfiguratorInfo setConfigurator(ConfiguratorInfo info) throws NotImplementedException {
         ConfiguratorInfo.setConfigurator(info);
         return new ConfiguratorInfo();
-    }
-
-    /**
-     * device.findObject() routine extension.
-     * This method enables the "parent" selector in the JSON request
-     * <p/>
-     * Example:
-     * d().child("a").child("b").parent().child("c").info
-     * Will result in three executions
-     * 1/ child("a").child("b") first
-     * 2/ parent()
-     * *   3/ child("c") eventually
-     *
-     * @param obj Selector of the UiObject
-     * @return UiObject found with Selector parameters
-     * @throws android.support.test.uiautomator.UiObjectNotFoundException
-     */
-    private UiObject findObjectEx(Selector obj) throws UiObjectNotFoundException {
-        java.util.Vector<UiSelector> _selectorList = new java.util.Vector<UiSelector>();
-        java.util.Vector<String> _selectorTypes = new java.util.Vector<String>();
-        obj.toUiSelectors(_selectorList, _selectorTypes);
-
-        UiObject _currentObject = null;
-        for (int i = 0; (i < _selectorList.size()) && (i < _selectorTypes.size()); i++) {
-            if (_selectorTypes.get(i).toLowerCase().equals("parent")) {
-                if (_currentObject != null) {
-                    _currentObject = getParent(_currentObject);
-                } else {
-                    throw new UiObjectNotFoundException("Internal error: Cannot retrieve parent of null instance.");
-                }
-            } else {
-                if (_currentObject == null) {
-                    _currentObject = device.findObject(_selectorList.get(i));
-                } else {
-                    _currentObject = _currentObject.getChild(_selectorList.get(i));
-                }
-            }
-        }
-        return _currentObject;
-    }
-
-    /**
-     * Get the parent UiObject.
-     *
-     * @param ui the current ui object.
-     * @return UiObject represent parent for the view.
-     * @throws UiObjectNotFoundException
-     */
-    private UiObject getParent(UiObject ui) throws UiObjectNotFoundException {
-        UiObjectExt reflexui = new UiObjectExt();
-        try {
-            UiObject parent = reflexui.GetParentForuiObject(ui);
-            if (parent != null) {
-                return parent;
-            } else {
-                return null;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return null;
     }
 }
