@@ -23,50 +23,50 @@
 
 package com.github.uiautomator.stub
 
+import android.content.Context
+import android.os.SystemClock
 import android.support.test.InstrumentationRegistry
 import android.support.test.filters.SdkSuppress
 import android.support.test.runner.AndroidJUnit4
-import android.support.test.uiautomator.UiDevice
 import android.test.FlakyTest
 import android.test.suitebuilder.annotation.LargeTest
-import com.fasterxml.jackson.databind.ObjectMapper
-import com.googlecode.jsonrpc4j.JsonRpcServer
-import org.junit.After
-import org.junit.Before
+import com.github.uiautomator.stub.server.ServerInstrumentation
 import org.junit.Test
 import org.junit.runner.RunWith
-//import kotlin.properties.Delegates
+
 
 
 /**
  * Use JUnit test to start the uiautomator jsonrpc server.
- * @author xiaocong@gmail.com
+ * Change by BHB
+ *   Add server instrumentation to monitor server status
  */
 @RunWith(AndroidJUnit4::class)
-@SdkSuppress(minSdkVersion = 18)
-public class Stub {
-    val PORT = 9008
-    val server: AutomatorHttpServer by lazy { AutomatorHttpServer(PORT) }
+@SdkSuppress(minSdkVersion = 18) class Stub {
 
-    @Before
-    public fun setUp() {
-        server.route("/jsonrpc/0", JsonRpcServer(ObjectMapper(), AutomatorServiceImpl(), AutomatorService::class.java))
-        server.start()
-        UiDevice.getInstance(InstrumentationRegistry.getInstrumentation()).wakeUp()
+    companion object {
+        val PORT = 9008
+        var serverInstrumentation: ServerInstrumentation? = null
     }
-
-    @After
-    public fun tearDown() {
-        server.stop()
-    }
+    var ctx: Context? = null
 
     @Test
     @LargeTest
     @FlakyTest(tolerance = 3)
-    @Throws(InterruptedException::class)
-    public fun testUIAutomatorStub() {
-        while (server.isAlive())
-            Thread.sleep(100)
+    @Throws(InterruptedException::class) fun testUIAutomatorStub() {
+        if (serverInstrumentation == null) {
+            ctx = InstrumentationRegistry.getInstrumentation().context
+            serverInstrumentation = ServerInstrumentation.getInstance(ctx, PORT)
+            try {
+                while (!serverInstrumentation!!.isStopServer) {
+                    Log.d("checking server monitor thread status")
+                    SystemClock.sleep(2000)
+                    serverInstrumentation!!.startServer()
+                }
+            } catch (e: Exception) {
+                Log.d(e.toString())
+            }
+        }
     }
 
 }

@@ -1,0 +1,36 @@
+Install APK:
+  adb install -r app/build/outputs/apk/app-debug.apk
+  adb install -r app/build/outputs/apk/app-debug-androidTest.apk
+
+Start Server:
+  adb shell am instrument -w -r com.github.uiautomator.test/android.support.test.runner.AndroidJUnitRunner
+
+Debug Server:
+  adb forward tcp:9008 tcp:9008
+  curl -d '{"jsonrpc":"2.0","method":"deviceInfo","id":1}' localhost:9008/jsonrpc/0
+
+    {"jsonrpc":"2.0",
+     "id":1,
+     "result":{"currentPackageName":"com.xiaomi.tv.desktop",
+             "displayHeight":1080,
+             "displayRotation":0,
+             "displaySizeDpX":960,
+             "displaySizeDpY":540,
+             "displayWidth":1920,
+             "productName":"inception",
+             "screenOn":true,
+             "sdkInt":22,
+             "naturalOrientation":true}
+    }
+
+Debug by logcat:
+adb logcat  -v time | grep UIAutomator
+    11-02 14:12:01.768 D/UIAutomatorStub( 6952): checking server monitor thread status
+    11-02 14:12:03.769 D/UIAutomatorStub( 6952): New AutomatorHttpServer monitor thread is starting up
+    11-02 14:12:03.770 D/UIAutomatorStub( 6952): checking server monitor thread status
+    11-02 14:12:03.791 D/UIAutomatorStub( 6952): AutomatorHttpServer starting
+    11-02 14:12:03.828 D/UIAutomatorStub( 6952): AutomatorHttpServer started on port 9008
+
+Check wakelock:
+  adb shell dumpsys power | grep AutomatorHttpServer
+  SCREEN_DIM_WAKE_LOCK           'AutomatorHttpServer' (uid=10083, pid=6952, ws=null)

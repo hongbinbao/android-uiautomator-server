@@ -34,7 +34,7 @@ Refer to python wrapper library [uiautomator](https://github.com/xiaocong/uiauto
 
 # Notes
 
-If you have any idea, please email xiaocong@gmail.com or [submit tickets](https://github.com/xiaocong/uiautomator/issues/new).
+If you have any idea, please email xiaocong@gmail.com, hongbin.bao@gmail.com or [submit tickets](https://github.com/xiaocong/uiautomator/issues/new).
 
 # Dependencies
 
@@ -44,5 +44,4 @@ If you have any idea, please email xiaocong@gmail.com or [submit tickets](https:
 
 # TODO
 
-- move from java to kotlin
-- support unicode input
+- review open issue and suggestion
