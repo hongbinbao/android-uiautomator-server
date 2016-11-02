@@ -127,7 +127,7 @@ public class ServerInstrumentation {
 
         public ServerThread(ServerInstrumentation instrumentation, int listenPort){
             this.instrumentation = instrumentation;
-            targetServer = new AutomatorHttpServer(listenPort);
+            targetServer = new AutomatorHttpServer(instrumentation ,listenPort);
         }
 
         @Override
@@ -135,10 +135,13 @@ public class ServerInstrumentation {
             Looper.prepare();
             looper = Looper.myLooper();
             startServer();
+            Log.d("ServerThread looper begin");
             Looper.loop();
+            Log.d("ServerThread end after loop");
         }
         @Override
         public void interrupt() {
+            Log.d("STOP by interrupt");
             targetServer.stop();
             super.interrupt();
         }

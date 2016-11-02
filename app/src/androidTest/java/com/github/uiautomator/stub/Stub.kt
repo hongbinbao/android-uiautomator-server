@@ -60,7 +60,7 @@ import org.junit.runner.RunWith
             try {
                 while (!serverInstrumentation!!.isStopServer) {
                     Log.d("checking server monitor thread status")
-                    SystemClock.sleep(2000)
+                    SystemClock.sleep(1000)
                     serverInstrumentation!!.startServer()
                 }
             } catch (e: Exception) {

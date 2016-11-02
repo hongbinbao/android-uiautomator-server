@@ -26,6 +26,7 @@ package com.github.uiautomator.stub;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.uiautomator.UiDevice;
 
+import com.github.uiautomator.stub.server.ServerInstrumentation;
 import com.googlecode.jsonrpc4j.JsonRpcServer;
 
 import java.io.ByteArrayInputStream;
@@ -40,9 +41,11 @@ import java.util.Map;
 import fi.iki.elonen.NanoHTTPD;
 
 public class AutomatorHttpServer extends NanoHTTPD {
+    private ServerInstrumentation instrumentation;
 
-    public AutomatorHttpServer(int port) {
+    public AutomatorHttpServer(ServerInstrumentation instrumentation, int port) {
         super(port);
+        this.instrumentation = instrumentation;
     }
 
     private Map<String, JsonRpcServer> router = new HashMap<String, JsonRpcServer>();
@@ -58,7 +61,10 @@ public class AutomatorHttpServer extends NanoHTTPD {
         Log.d(String.format("URI: %s, Method: %s, Header: %s, params, %s, files: %s", uri, method, headers, params, files));
 
         if ("/stop".equals(uri)) {
-            stop();
+            Log.d("stop by remote");
+            //stop();
+            //TODO
+            this.instrumentation.stopServer();
             return new Response("Server stopped!!!");
         } else if ("/0/screenshot".equals(uri) || "/screenshot/0".equals(uri)) {
             float scale = 1.0f;
@@ -93,9 +99,11 @@ public class AutomatorHttpServer extends NanoHTTPD {
             else
                 return new Response(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "Invalid http post data!");
             ByteArrayOutputStream os = new ByteArrayOutputStream();
+            //{"jsonrpc":"2.0","id":1,"error":{"code":0,"message":"UiAutomation not connected!","data":{"exceptionTypeName":"java.lang.IllegalStateException","message":"UiAutomation not connected!"}}}
             try {
                 jsonRpcServer.handle(is, os);
                 return new Response(Response.Status.OK, "application/json", new ByteArrayInputStream(os.toByteArray()));
+                //return new Response(Response.Status.OK, "application/json", new ByteArrayInputStream(os.toByteArray()));
             } catch (IOException e) {
                 return new Response(Response.Status.INTERNAL_ERROR, MIME_PLAINTEXT, "Internal Server Error!!!");
             }
